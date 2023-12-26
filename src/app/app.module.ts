@@ -7,17 +7,20 @@ import { ProductComponent } from './product/product.component';
 import { NavComponent } from './nav/nav.component';
 import { CategoryComponent } from './category/category.component';
 import { AlertifyService } from './services/alertify.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
     NavComponent,
-    CategoryComponent
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   providers: [
     provideClientHydration(),

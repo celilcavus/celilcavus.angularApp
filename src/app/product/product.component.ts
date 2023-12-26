@@ -1,33 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from './product';
-import {AlertifyService} from '../services/alertify.service';
-
-
+import { AlertifyService } from '../services/alertify.service';
+import { HttpClient } from '@angular/common/http';
+import { ProductServiceService } from '../services/product-service.service';
+import { catchError, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 
 })
-export class ProductComponent {
-  
-  constructor(private alertifyServices:AlertifyService)
-  {
-
-  }
+export class ProductComponent implements OnInit {
   name = "Ürün Listesi"
-  loremPicsum = "https://picsum.photos/200/200";
-  products: Product[] = [
-    { id: 1, imageUrl: this.loremPicsum, name: "Laptop", price: 34.000, categoryId: 1, description: "Çok güzel bir laptop", },
-    { id: 2, imageUrl: this.loremPicsum, name: "Phone", price: 12.000, categoryId: 2, description: "Çok güzel bir Laptop", },
-    { id: 2, imageUrl: this.loremPicsum, name: "Phone", price: 12.000, categoryId: 2, description: "Çok güzel bir Laptop", },
-    { id: 2, imageUrl: this.loremPicsum, name: "Phone", price: 12.000, categoryId: 2, description: "Çok güzel bir Laptop", },
-    { id: 2, imageUrl: this.loremPicsum, name: "Phone", price: 12.000, categoryId: 2, description: "Çok güzel bir Laptop", },
-    { id: 2, imageUrl: this.loremPicsum, name: "Phone", price: 12.000, categoryId: 2, description: "Çok güzel bir Laptop", }
-  ]
+  constructor(private alertifyServices: AlertifyService, private _product: ProductServiceService, private _activetedRoute: ActivatedRoute) {
 
-  addToCart(product:Product){
-    
-    this.alertifyServices.sucess(`Product failed ${product.name}`);
   }
+
+  products: Product[] = [];
+  ngOnInit(): void {
+    this._activetedRoute.params.subscribe(params => {this._product.getProducts(params["name"]).subscribe(data => { this.products = data }) })
+    
+  }
+
+  addToCart(product: Product) {
+
+    // this.alertifyServices.sucess(`Product failed ${product.name}`);
+  }
+  
 }

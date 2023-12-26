@@ -1,4 +1,4 @@
 <h3>{{title}}</h3>
 <div *ngFor="let item of categories" class="list-group">
-<a href="" class="list-group-item mb-1 list-group-item-action">{{item.name}}</a>
+<a routerLink="products/category/{{item.name}}" class="list-group-item mb-1 list-group-item-action">{{item.name}}</a>
 </div>
